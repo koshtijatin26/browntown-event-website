@@ -24,9 +24,17 @@ const MenuItems = ({ parentMenu, secondParentMenu, activeMenu }) => {
   return (
     <ul className="main-menu__list">
       <li className={parentMenu === "Home" ? "current-menu-item" : ""}>
-        <Link to="/" className={activeMenu === "/" ? "active-menu" : ""}>
-          Home
-        </Link>
+  <Link
+    to="/"
+    onClick={(e) => {
+      e.preventDefault(); // stop navigation
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.history.replaceState(null, "", "/"); // optional: keep URL clean
+    }}
+    className={activeMenu === "/" ? "active-menu" : ""}
+  >
+    Home
+  </Link>
       </li>
 
       <li className={parentMenu === "About Us" ? "current-menu-item" : ""}>
