@@ -14,11 +14,6 @@ const EventOne = ({ tagline, title, buttonText, points, imageUrl }) => {
               </div>
               <h2 className="section-title__title">{title}</h2>
             </div>
-            <div className="event-one__btn-box">
-              <Link to="/event-details" className="event-one__btn thm-btn">
-                  {buttonText} <span className="icon-arrow-right"></span>
-              </Link>
-            </div>
           </div>
           <ul className="list-unstyled event-one__points">
             {points.map((point, index) => (

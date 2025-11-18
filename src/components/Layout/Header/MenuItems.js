@@ -1,9 +1,54 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const MenuItems = ({ parentMenu, secondParentMenu, activeMenu }) => {
+  const handleScrollLink = (e, id) => {
+    e.preventDefault(); // stop React Router from changing route
+
+    const el = document.querySelector(id);
+    if (el) {
+      const headerOffset = 120;
+      const elementPos = el.getBoundingClientRect().top + window.pageYOffset;
+      const offset = elementPos - headerOffset;
+
+      window.scrollTo({
+        top: offset,
+        behavior: "smooth",
+      });
+    }
+
+    // optionally update URL hash without page jump
+    window.history.replaceState(null, "", id);
+  };
+
   return (
     <ul className="main-menu__list">
+      <li className={parentMenu === "Home" ? "current-menu-item" : ""}>
+        <Link to="/" className={activeMenu === "/" ? "active-menu" : ""}>
+          Home
+        </Link>
+      </li>
+
+      <li className={parentMenu === "About Us" ? "current-menu-item" : ""}>
+        <Link
+          to="#about-us"
+          onClick={(e) => handleScrollLink(e, "#about-us")}
+          className={activeMenu === "#about-us" ? "active-menu" : ""}
+        >
+          About Us
+        </Link>
+      </li>
+
+      <li className={parentMenu === "Contact Us" ? "current-menu-item" : ""}>
+        <Link
+          to="#contact-us"
+          onClick={(e) => handleScrollLink(e, "#contact-us")}
+          className={activeMenu === "#contact-us" ? "active-menu" : ""}
+        >
+          Contact Us
+        </Link>
+      </li>
+
       {/* <li className={parentMenu === 'Home' ? 'dropdown current-menu-item' : 'dropdown'}>
         <Link to="#">Home</Link>
         <ul className="sub-menu">
@@ -184,21 +229,6 @@ const MenuItems = ({ parentMenu, secondParentMenu, activeMenu }) => {
           </li>
         </ul>
       </li> */}
-      <li className={parentMenu === 'Home' ? 'current-menu-item' : ''}>
-        <Link to="/" className={activeMenu === '/' ? 'active-menu' : ''}>
-          Home
-        </Link>
-      </li>
-      <li className={parentMenu === 'About Us' ? 'current-menu-item' : ''}>
-        <Link to="/about-us" className={activeMenu === '/about-us' ? 'active-menu' : ''}>
-          About Us
-        </Link>
-      </li>
-      <li className={parentMenu === 'Contact Us' ? 'current-menu-item' : ''}>
-        <Link to="/contact-us" className={activeMenu === '/contact-us' ? 'active-menu' : ''}>
-          Contact Us
-        </Link>
-      </li>
     </ul>
   );
 };
